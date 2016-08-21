@@ -1,10 +1,21 @@
 ﻿{
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha-1",
 
   "name": "Shorthand.UrlMetaExtractor",
   "title": "Shorthand Url Meta Extractor",
   "description": "Helper utility to fetch metadata such as OpenGraph from an url.",
   "authors": [ "Karl-Johan Sjögren" ],
+
+  "packOptions": {
+    "owners": [ "Karl-Johan Sjögren" ],
+    "projectUrl": "https://github.com/karl-sjogren/Shorthand.UrlMetaExtractor",
+    "licenseUrl": "https://github.com/karl-sjogren/Shorthand.UrlMetaExtractor/blob/master/LICENSE",
+    "tags": [ "og", "opengraph", "metadata", "html" ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/karl-sjogren/Shorthand.UrlMetaExtractor.git"
+    }
+  },
 
   "dependencies": {
     "AngleSharp": "0.9.7"
