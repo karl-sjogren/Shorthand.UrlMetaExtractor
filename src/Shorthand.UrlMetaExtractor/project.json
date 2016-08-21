@@ -1,11 +1,22 @@
 ﻿{
   "version": "1.0.0-alpha",
 
+  "name": "Shorthand.UrlMetaExtractor",
+  "title": "Shorthand Url Meta Extractor",
+  "description": "Helper utility to fetch metadata such as OpenGraph from an url.",
+  "authors": [ "Karl-Johan Sjögren" ],
+
   "dependencies": {
     "AngleSharp": "0.9.7"
   },
 
   "frameworks": {
+    "net452": {
+      "frameworkAssemblies": {
+        "System.Core": "4.0.0.0",
+        "System.Net.Http": "4.0.0.0"
+      }
+    },
     "netstandard1.6": {
       "imports": [ "dnxcore50", "dotnet5.6", "portable-net45+win8" ],
       "dependencies": {

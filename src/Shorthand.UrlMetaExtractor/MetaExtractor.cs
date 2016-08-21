@@ -26,14 +26,15 @@ namespace Shorthand.UrlMetaExtractor {
             var client = new HttpClient(_messageHandler ?? new HttpClientHandler());
 
             var responseHtml = await client.GetStringAsync(uri);
-
             var document = await ParseDocument(responseHtml);
-
-
+            
             var meta = new UrlMetadata();
 
             ExtractOpenGraph(document, meta);
             ExtractMisc(document, meta);
+            ExtractHtmlMeta(document, meta);
+
+            meta.SetProperty(m => m.Url, uri.ToString());
 
             return meta;
         }
@@ -58,6 +59,12 @@ namespace Shorthand.UrlMetaExtractor {
                     case "og:description":
                         meta.SetProperty(m => m.Description, ogTag.Value);
                         break;
+                    case "og:isbn": // Not technically per specification but I've seen it at least twice already
+                        meta.PushProperty(m => m.ISBN, ogTag.Value);
+                        break;
+                    case "og:locale":
+                        meta.SetProperty(m => m.Locale, ogTag.Value);
+                        break;
                 }
             }
         }
@@ -73,6 +80,13 @@ namespace Shorthand.UrlMetaExtractor {
                         break;
                 }
             }
+        }
+
+        internal static void ExtractHtmlMeta(IHtmlDocument document, UrlMetadata meta) {
+            meta.SetProperty(m => m.Title, document.Title);
+            meta.SetProperty(m => m.Description, document.QuerySelector("meta[name='description']")?.Attributes["content"]?.Value);
+            meta.SetProperty(m => m.Locale, document.QuerySelector("html[lang]")?.Attributes["lang"]?.Value);
+            meta.SetProperty(m => m.Image, document.QuerySelector("link[rel='image_src']")?.Attributes["href"]?.Value);
         }
 
         private static async Task<IHtmlDocument> ParseDocument(string responseHtml) {

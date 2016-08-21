@@ -254,3 +254,11 @@ paket-files/
 
 # CodeRush
 .cr/
+
+# Build related
+tools/Cake/
+tools/NUnit.Runners/
+tools/NUnit.Console/
+tools/NUnit.ConsoleRunner/
+tools/nuget.exe
+tools/packages.config.md5sum

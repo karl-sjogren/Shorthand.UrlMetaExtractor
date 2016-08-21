@@ -8,8 +8,8 @@ namespace Shorthand.UrlMetaExtractor {
     public class ExtractorTests {
 
         [Test]
-        public async Task ExtractBasicTags() {
-            var html = File.ReadAllText(Path.Combine("Resources", "BasicTags.html"));
+        public async Task ExtractOpenGraphTags() {
+            var html = File.ReadAllText(Path.Combine("Resources", "OpenGraphTags.html"));
 
             var parser = new HtmlParser();
             var document = await parser.ParseAsync(html);
@@ -21,6 +21,25 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("The Rock", meta.Title);
             Assert.AreEqual("http://www.imdb.com/title/tt0117500/", meta.Url);
             Assert.AreEqual("http://ia.media-imdb.com/images/rock.jpg", meta.Image);
+            Assert.AreEqual("Directed by Michael Bay.  With Sean Connery, Nicolas Cage, Ed Harris, John Spencer. A mild-mannered chemist and an ex-con must lead the counterstrike when a rogue group of military men, led by a renegade general, threaten a nerve gas attack from Alcatraz against San Francisco.", meta.Description);
+            Assert.AreEqual("sv", meta.Locale);
+        }
+
+        [Test]
+        public async Task ExtractHtmlFallback() {
+            var html = File.ReadAllText(Path.Combine("Resources", "HtmlFallback.html"));
+
+            var parser = new HtmlParser();
+            var document = await parser.ParseAsync(html);
+
+            var meta = new UrlMetadata();
+
+            MetaExtractor.ExtractHtmlMeta(document, meta);
+
+            Assert.AreEqual("The Rock", meta.Title);
+            Assert.AreEqual("http://ia.media-imdb.com/images/rock.jpg", meta.Image);
+            Assert.AreEqual("Directed by Michael Bay.  With Sean Connery, Nicolas Cage, Ed Harris, John Spencer. A mild-mannered chemist and an ex-con must lead the counterstrike when a rogue group of military men, led by a renegade general, threaten a nerve gas attack from Alcatraz against San Francisco.", meta.Description);
+            Assert.AreEqual("sv", meta.Locale);
         }
 
         [Test]
