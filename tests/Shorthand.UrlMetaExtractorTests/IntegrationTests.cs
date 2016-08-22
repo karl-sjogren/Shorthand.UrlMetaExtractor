@@ -13,6 +13,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("The Final Empire (Mistborn, #1)", meta.Title);
             Assert.AreEqual("http://www.goodreads.com/work/best_book/66322-mistborn-the-final-empire", meta.Url);
             Assert.Contains("076531178X", meta.ISBN);
+            Assert.AreEqual("www.goodreads.com", meta.Host);
         }
 
         [Test]
@@ -24,6 +25,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("Frozen (2013)", meta.Title);
             Assert.AreEqual("http://www.imdb.com/title/tt2294629/", meta.Url);
             Assert.AreEqual("IMDb", meta.SiteName);
+            Assert.AreEqual("www.imdb.com", meta.Host);
         }
 
         [Test]
@@ -38,6 +40,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("boktipset.se", meta.SiteName);
             Assert.AreEqual("http://www.boktipset.se/images/content/A/zu/zuk49uhrrCPjbF6OXEA.jpg", meta.Image);
             Assert.Contains("9789146225225", meta.ISBN);
+            Assert.AreEqual("www.boktipset.se", meta.Host);
         }
 
         [Test]
@@ -51,6 +54,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("Startsidan - De senaste nyheterna på Aftonbladet.se - Sveriges nyhetsportal", meta.Description);
             Assert.IsNull(meta.Image);
             Assert.IsEmpty(meta.ISBN);
+            Assert.AreEqual("www.aftonbladet.se", meta.Host);
         }
 
         [Test]
@@ -64,6 +68,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.AreEqual("The Paradox of the Flame, an album by Evergrey on Spotify", meta.Description);
             Assert.AreEqual("https://i.scdn.co/image/bb24a35b08fd94c2fc8f789e0b77cc7f0065ceb2", meta.Image);
             Assert.AreEqual("en", meta.Locale);
+            Assert.AreEqual("open.spotify.com", meta.Host);
         }
     }
 }

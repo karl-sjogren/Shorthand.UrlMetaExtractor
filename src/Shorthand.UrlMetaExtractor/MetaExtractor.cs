@@ -35,6 +35,7 @@ namespace Shorthand.UrlMetaExtractor {
             ExtractHtmlMeta(document, meta);
 
             meta.SetProperty(m => m.Url, uri.ToString());
+            meta.SetProperty(m => m.Host, uri.GetComponents(UriComponents.Host, UriFormat.Unescaped));
 
             return meta;
         }
