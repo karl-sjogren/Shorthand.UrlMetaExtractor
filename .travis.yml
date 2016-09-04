@@ -6,6 +6,8 @@ os:
 # .NET CLI require Ubuntu 14.04
 sudo: required
 dist: trusty
+env:  
+  - CLI_VERSION=latest
 addons:
   apt:
     packages:
