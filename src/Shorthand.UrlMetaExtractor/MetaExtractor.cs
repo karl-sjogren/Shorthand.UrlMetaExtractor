@@ -90,6 +90,24 @@ namespace Shorthand.UrlMetaExtractor {
             meta.SetProperty(m => m.Image, document.QuerySelector("link[rel='image_src']")?.Attributes["href"]?.Value);
         }
 
+        internal static void ExtractTwitterTags(IHtmlDocument document, UrlMetadata meta) {
+            var twitterTags = document.QuerySelectorAll("meta[property^='twitter:']").Select(t => new KeyValuePair<string, string>(t.Attributes["property"].Value.ToLowerInvariant(), t.Attributes["content"].Value));
+
+            foreach(var tag in twitterTags) {
+                switch(tag.Key) {
+                    case "twitter:title":
+                        meta.SetProperty(m => m.Title, tag.Value);
+                        break;
+                    case "twitter:image":
+                        meta.SetProperty(m => m.Image, tag.Value);
+                        break;
+                    case "twitter:site":
+                        meta.SetProperty(m => m.SiteName, tag.Value);
+                        break;
+                }
+            }
+        }
+
         private static async Task<IHtmlDocument> ParseDocument(string responseHtml) {
             var parser = new HtmlParser();
             var document = await parser.ParseAsync(responseHtml);

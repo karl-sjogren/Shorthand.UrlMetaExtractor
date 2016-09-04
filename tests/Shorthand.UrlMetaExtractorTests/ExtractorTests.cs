@@ -6,7 +6,6 @@ using AngleSharp.Parser.Html;
 namespace Shorthand.UrlMetaExtractor {
     [TestFixture]
     public class ExtractorTests {
-
         [Test]
         public async Task ExtractOpenGraphTags() {
             var html = File.ReadAllText(Path.Combine("Resources", "OpenGraphTags.html"));
@@ -73,6 +72,22 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.Contains("076531178X", meta.ISBN);
             Assert.Contains("9780765356130", meta.ISBN);
             Assert.Contains("9780575089945", meta.ISBN);
+        }
+
+        [Test]
+        public async Task ExtractTwitterTags() {
+            var html = File.ReadAllText(Path.Combine("Resources", "TwitterTags.html"));
+
+            var parser = new HtmlParser();
+            var document = await parser.ParseAsync(html);
+
+            var meta = new UrlMetadata();
+
+            MetaExtractor.ExtractTwitterTags(document, meta);
+
+            Assert.AreEqual("DeejaySample", meta.Title);
+            Assert.AreEqual("https://i1.sndcdn.com/avatars-000127452541-ap7j7n-t500x500.jpg", meta.Image);
+            Assert.AreEqual("SoundCloud", meta.SiteName);
         }
     }
 }
