@@ -1,5 +1,6 @@
 ﻿language: csharp
 sudo: required
+solution: Shorthand.UrlMetaExtractor.sln
 dist: trusty
 env:
   - CLI_VERSION=latest
