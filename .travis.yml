@@ -1,28 +1,35 @@
 ﻿language: csharp
+os:
+  - osx
+  - linux
+
+# .NET CLI require Ubuntu 14.04
 sudo: required
 dist: trusty
 addons:
   apt:
-    packages:
+    packages: 
     - gettext
     - libcurl4-openssl-dev
     - libicu-dev
     - libssl-dev
     - libunwind8
-    - zlib1g
-mono:
-  - 4.0.5
-os:
-  - linux
-  - osx
+
+# .NET CLI require OSX 10.10
 osx_image: xcode7.1
-branches:
-  only:
-    - master
-    - release
-    - dev
-    - /^(.*\/)?ci-.*$/
-before_install:
+before_install:  
   - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
+
+mono:  
+  - 4.2.3
+
 script:
-  - ./build.sh --target test
+  - ./build.sh --target restore
+  - ./build.sh --target test --verbosity diagnostic
+
+cache:
+  directories:
+    - .packages
+    - tools/Addins
+    - tools/gitreleasemanager
+    - tools/GitVersion.CommandLine
