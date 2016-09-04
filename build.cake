@@ -31,6 +31,7 @@ Task("build")
     });
 
 Task("test")
+    .IsDependentOn("restore")
     .Does(() => {
         var settings = new DotNetCoreTestSettings {
 			WorkingDirectory = "./tests/Shorthand.UrlMetaExtractorTests/"

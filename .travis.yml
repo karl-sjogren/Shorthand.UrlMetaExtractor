@@ -24,7 +24,6 @@ mono:
   - 4.2.3
 
 script:
-  - ./build.sh --target restore
   - ./build.sh --target test --verbosity diagnostic
 
 cache:
