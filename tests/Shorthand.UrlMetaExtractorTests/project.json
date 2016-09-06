@@ -14,13 +14,13 @@
   },
   "testRunner": "nunit",
   "frameworks": {
-    "net452": {
+    "net451": {
       "frameworkAssemblies": {
         "System.Core": "4.0.0.0",
         "System.Net.Http": "4.0.0.0"
       }
     },
-    "netstandard1.6": {
+    "netstandard1.3": {
       "dependencies": {
         "NETStandard.Library": "1.6.0"
       },
