@@ -18,6 +18,7 @@ Task("restore")
     .IsDependentOn("clean")
     .Does(() => {
         DotNetCoreRestore("src/Shorthand.UrlMetaExtractor/project.json");
+        DotNetCoreRestore("./tests/Shorthand.UrlMetaExtractorTests/project.json");
     });
 
 Task("build")
@@ -34,9 +35,12 @@ Task("test")
     .IsDependentOn("restore")
     .Does(() => {
         var settings = new DotNetCoreTestSettings {
-			WorkingDirectory = "./tests/Shorthand.UrlMetaExtractorTests/"
-		};
-        DotNetCoreRestore("./tests/Shorthand.UrlMetaExtractorTests/project.json");                
+            WorkingDirectory = "./tests/Shorthand.UrlMetaExtractorTests/",
+        };
+        
+        if(TravisCI.IsRunningOnTravisCI)
+            settings.Framework = "netstandard1.3";
+        
         DotNetCoreTest("./project.json", settings);
     });
 
