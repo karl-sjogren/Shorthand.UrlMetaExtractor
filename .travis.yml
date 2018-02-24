@@ -1,13 +1,8 @@
 language: csharp
-os:
-  - osx
-  - linux
-
-# .NET CLI require Ubuntu 14.04
+mono: alpha
 sudo: required
 dist: trusty
-env:  
-  - CLI_VERSION=latest
+#dotnet: 2.0.0
 addons:
   apt:
     packages:
@@ -16,27 +11,18 @@ addons:
     - libicu-dev
     - libssl-dev
     - libunwind8
-
-# .NET CLI require OSX 10.10
-osx_image: xcode7.1
-before_install:
-  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
-  - chmod a+x build.sh
-
+env:
+  - MONO_TLS_PROVIDER=legacy
 install:
-  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
-  - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
-  - export PATH="$DOTNET_INSTALL_DIR:$PATH"
-
-mono:
-  - 4.2.3
-
+  - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  - sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  - sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+  - sudo apt-get update
+  - sudo apt-get install dotnet-sdk-2.0.2
+  - sudo apt-get install dotnet-dev-1.0.4
+  - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+  - export DOTNET_CLI_TELEMETRY_OPTOUT=true
+  - dotnet restore
 script:
-  - ./build.sh --target test --verbosity diagnostic
-
-cache:
-  directories:
-    - .packages
-    - tools/Addins
-    - tools/gitreleasemanager
-    - tools/GitVersion.CommandLine
+  - ./build.sh --target=test
+  - ./build.sh --target=pack

@@ -1,61 +1,46 @@
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
-
-var target = Argument("target", "default");
-var configuration = Argument("configuration", "Release");
+var target = Argument("target", "build");
 var output = Argument("output", "./artifacts");
-
-Information("Target: " + target);
-Information("Configuration: " + configuration + ", tests always run under Debug");
+var versionSuffix = Argument<string>("versionSuffix", null);
 
 Task("clean")
     .Does(() => {
-        CleanDirectories("./**/bin/" + configuration);
-        CleanDirectories("./**/obj/" + configuration);
+        CleanDirectories("./src/**/bin/");
+        CleanDirectories("./src/**/obj/");
+        CleanDirectories("./test/**/bin/");
+        CleanDirectories("./test/**/obj/");
         CleanDirectory("./artifacts");
-    });    
-
-Task("restore")
-    .IsDependentOn("clean")
-    .Does(() => {
-        DotNetCoreRestore("src/Shorthand.UrlMetaExtractor/project.json");
-        DotNetCoreRestore("./tests/Shorthand.UrlMetaExtractorTests/project.json");
-    });
+    });   
 
 Task("build")
-    .IsDependentOn("restore")
+    .IsDependentOn("clean")
     .Does(() => {
+        DotNetCoreRestore("./src/Shorthand.UrlMetaExtractor/Shorthand.UrlMetaExtractor.csproj");
+        
         var buildSettings = new DotNetCoreBuildSettings {
-            Configuration = configuration
+            Configuration = "Release",
+            VersionSuffix = versionSuffix
         };
 
-        DotNetCoreBuild("src/Shorthand.UrlMetaExtractor/project.json", buildSettings);
+        DotNetCoreBuild("./src/Shorthand.UrlMetaExtractor/Shorthand.UrlMetaExtractor.csproj", buildSettings);
+    });
+
+Task("pack")
+    .Does(() => {
+        var packSettings = new DotNetCorePackSettings{
+            Configuration = "Release",
+            OutputDirectory = output,
+            VersionSuffix = versionSuffix
+        };
+
+        DotNetCorePack("./src/Shorthand.UrlMetaExtractor/Shorthand.UrlMetaExtractor.csproj", packSettings);
     });
 
 Task("test")
-    .IsDependentOn("restore")
     .Does(() => {
-        var settings = new DotNetCoreTestSettings {
-            WorkingDirectory = "./tests/Shorthand.UrlMetaExtractorTests/",
-        };
-        
-        if(TravisCI.IsRunningOnTravisCI)
-            settings.Framework = "netstandard1.3";
-        
-        DotNetCoreTest("./project.json", settings);
+        var settings = new DotNetCoreTestSettings { };
+
+        DotNetCoreRestore("./tests/Shorthand.UrlMetaExtractor.Tests/Shorthand.UrlMetaExtractor.Tests.csproj");                
+        DotNetCoreTest("./tests/Shorthand.UrlMetaExtractor.Tests/Shorthand.UrlMetaExtractor.Tests.csproj", settings);
     });
-
-Task("pack")    
-    .IsDependentOn("build")
-    .Does(() => {
-        var packSettings = new DotNetCorePackSettings {
-            Configuration = configuration,
-            OutputDirectory = output
-        };
-
-        DotNetCorePack("src/Shorthand.UrlMetaExtractor/project.json", packSettings);
-    });
-
-Task("default")
-    .IsDependentOn("test");
 
 RunTarget(target);
