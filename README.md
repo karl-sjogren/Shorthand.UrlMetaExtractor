@@ -1,1 +1,1 @@
-# Shorthand.UrlMetaExtractor
+# Shorthand.UrlMetaExtractor [![Build Status](https://travis-ci.org/karl-sjogren/Shorthand.UrlMetaExtractor.svg?branch=master)](https://travis-ci.org/karl-sjogren/Shorthand.UrlMetaExtractor)
