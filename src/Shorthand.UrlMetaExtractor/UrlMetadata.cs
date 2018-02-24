@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+[assembly:InternalsVisibleTo("Shorthand.UrlMetaExtractor.Tests")]
 
 namespace Shorthand.UrlMetaExtractor {
     public class UrlMetadata {

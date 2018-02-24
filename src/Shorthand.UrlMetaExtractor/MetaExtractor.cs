@@ -76,6 +76,7 @@ namespace Shorthand.UrlMetaExtractor {
             foreach(var ogTag in ogTags) {
                 switch(ogTag.Key) {
                     case "book:isbn":
+                    case "books:isbn":
                     case "good_reads:isbn":
                         meta.PushProperty(m => m.ISBN, ogTag.Value);
                         break;

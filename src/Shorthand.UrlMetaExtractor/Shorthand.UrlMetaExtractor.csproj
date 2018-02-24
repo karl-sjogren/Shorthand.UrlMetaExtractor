@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Title>Shorthand Url Meta Extractor</Title>
+    <Description>Helper utility to fetch metadata such as OpenGraph from an url.</Description>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0;netstandard1.3</TargetFrameworks>
+    <AssemblyName>Shorthand.UrlMetaExtractor</AssemblyName>
+    <Authors>Karl-Johan Sjögren</Authors>
+    <PackageProjectUrl>https://github.com/karl-sjogren/Shorthand.UrlMetaExtractor</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/karl-sjogren/Shorthand.UrlMetaExtractor/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageId>Shorthand.UrlMetaExtractor</PackageId>
+    <IncludeSymbols>true</IncludeSymbols>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.9.7" />
+  </ItemGroup>
+</Project>
