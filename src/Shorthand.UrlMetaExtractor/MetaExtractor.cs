@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
-using AngleSharp.Dom.Html;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Dom;
+using AngleSharp.Html.Parser;
 
 namespace Shorthand.UrlMetaExtractor {
     public class MetaExtractor {
@@ -111,7 +111,7 @@ namespace Shorthand.UrlMetaExtractor {
 
         private static async Task<IHtmlDocument> ParseDocument(string responseHtml) {
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(responseHtml);
+            var document = await parser.ParseDocumentAsync(responseHtml);
             return document;
         }
     }

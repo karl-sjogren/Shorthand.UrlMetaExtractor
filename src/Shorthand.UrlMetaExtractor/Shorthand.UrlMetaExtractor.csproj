@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Title>Shorthand Url Meta Extractor</Title>
     <Description>Helper utility to fetch metadata such as OpenGraph from an url.</Description>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <TargetFrameworks>netstandard2.0;netstandard1.3</TargetFrameworks>
     <AssemblyName>Shorthand.UrlMetaExtractor</AssemblyName>
     <Authors>Karl-Johan Sjögren</Authors>
@@ -14,6 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.9.7" />
+    <PackageReference Include="AngleSharp" Version="0.11.0" />
   </ItemGroup>
 </Project>

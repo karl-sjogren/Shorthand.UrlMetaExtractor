@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Parser;
 using Xunit;
 
 namespace Shorthand.UrlMetaExtractor {
@@ -10,7 +10,7 @@ namespace Shorthand.UrlMetaExtractor {
             var html = File.ReadAllText(Path.Combine("Resources", "OpenGraphTags.html"));
 
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(html);
+            var document = await parser.ParseDocumentAsync(html);
 
             var meta = new UrlMetadata();
 
@@ -28,7 +28,7 @@ namespace Shorthand.UrlMetaExtractor {
             var html = File.ReadAllText(Path.Combine("Resources", "HtmlFallback.html"));
 
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(html);
+            var document = await parser.ParseDocumentAsync(html);
 
             var meta = new UrlMetadata();
 
@@ -45,7 +45,7 @@ namespace Shorthand.UrlMetaExtractor {
             var html = File.ReadAllText(Path.Combine("Resources", "RepeatedTags.html"));
 
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(html);
+            var document = await parser.ParseDocumentAsync(html);
 
             var meta = new UrlMetadata();
 
@@ -61,7 +61,7 @@ namespace Shorthand.UrlMetaExtractor {
             var html = File.ReadAllText(Path.Combine("Resources", "ISBN.html"));
 
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(html);
+            var document = await parser.ParseDocumentAsync(html);
 
             var meta = new UrlMetadata();
 
@@ -78,7 +78,7 @@ namespace Shorthand.UrlMetaExtractor {
             var html = File.ReadAllText(Path.Combine("Resources", "TwitterTags.html"));
 
             var parser = new HtmlParser();
-            var document = await parser.ParseAsync(html);
+            var document = await parser.ParseDocumentAsync(html);
 
             var meta = new UrlMetadata();
 
