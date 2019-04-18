@@ -41,7 +41,7 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.Contains("9789146225225", meta.ISBN);
             Assert.Equal("www.boktipset.se", meta.Host);
         }
-/*
+
         [Fact]
         public async Task SpotifyEvergreyTheParadoxOfTheFlame() {
             var extractor = new MetaExtractor();
@@ -55,6 +55,5 @@ namespace Shorthand.UrlMetaExtractor {
             Assert.Equal("en", meta.Locale);
             Assert.Equal("open.spotify.com", meta.Host);
         }
- */
-    }
+     }
 }
